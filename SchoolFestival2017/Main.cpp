@@ -1,4 +1,5 @@
 ﻿#include<Siv3D.hpp>
+#include<HamFramework.hpp>
 
 class Drag{
 private:
@@ -67,19 +68,62 @@ public:
 	}
 };
 
+enum class Scene{
+	Title,
+	Game,
+	Result,
+	Ranking
+};
+struct GlobalData{
+
+};
+using MySceneManager=SceneManager<Scene,GlobalData>;
+namespace Flower{
+	const String blue	=L"flower_blue";
+	const String brown	=L"flower_brown";
+	const String green	=L"flower_green";
+	const String orange	=L"flower_orange";
+	const String pink	=L"flower_pink";
+	const String purple	=L"flower_purple";
+	const String red	=L"flower_red";
+	const String sky	=L"flower_sky";
+	const String yellow	=L"flower_yellow";
+}
+
+String SF=L"flower_";
+String root=L"resources/";
+inline void _register(const String& v){
+	TextureAsset::Register(v,root+L"small_"+v+L".png");
+}
 void Main(){
 	Window::Resize(960,640);
-	Graphics::SetBackground(Palette::Green);
+
+	FontManager::Register(root+L"nekokaburi.otf");
+	FontAsset::Register(L"font",40,L"ねこかぶり");
+	_register(Flower::blue);
+	_register(Flower::brown);
+	_register(Flower::green);
+	_register(Flower::orange);
+	_register(Flower::pink);
+	_register(Flower::purple);
+	_register(Flower::red);
+	_register(Flower::sky);
+	_register(Flower::yellow);
+	TextureAsset::Register(L"BG",root+L"background.png");
+	TextureAsset::Register(L"nuts",root+L"nuts_himawari_single.png");
+	TextureAsset::Register(L"kyuukon",root+L"flower_tulip_kyuukon_single.png");
+	TextureAsset::Register(L"bee",root+L"mitsubachi_new.png");
+
+	MySceneManager mng;
+
 	Drag drag;
 	Unit unit({240,240});
 	EasingController<double> powercircleease(
-		 0.0,
+		0.0,
 		10.0,
 		Easing::Circ,
 		700.0);
-
-	FontManager::Register(L"resources/nekokaburi.otf");
-	FontAsset::Register(L"font",40,L"ねこかぶり");
+	Graphics::SetBackground(Palette::Green);
 	while (System::Update()){
 		drag.update();
 		unit.update();
