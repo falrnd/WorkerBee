@@ -78,23 +78,25 @@ void Main(){
 		Easing::Circ,
 		700.0);
 
-	const Font debug(10);
+	FontManager::Register(L"resources/nekokaburi.otf");
+	FontAsset::Register(L"font",40,L"ねこかぶり");
 	while (System::Update()){
 		drag.update();
 		unit.update();
 
-		debug(drag.direction()).draw(0, 0);
-		debug(unit.pos).draw(0,20);
-		debug(unit.speed).draw(0,40);
 		if(Input::MouseL.clicked){
 			powercircleease.reset();
 			powercircleease.start();
 		}
+
+		FontAsset(L"font").draw(L"ほげ");
+
 		if(Input::MouseL.pressed){
-			getLine(drag.from(), drag.length()+3.2, drag.direction())
+			getLine(drag.from(), drag.duration()/1000.0*150+3.2, drag.direction())
 				.drawArrow( 9.0,{15.0,15.0},Palette::Black);
-			getLine(drag.from(), drag.length()    , drag.direction())
+			getLine(drag.from(), drag.duration()/1000.0*150    , drag.direction())
 				.drawArrow( 5.0,{10.0,10.0},Palette::White);
+			LOG_DEBUG(drag.duration());
 			Circle(drag.from(),powercircleease.easeOut()+drag.duration()/120.0)
 				.drawShadow({0,0},10,3,Palette::Black)
 				.draw(Palette::White);

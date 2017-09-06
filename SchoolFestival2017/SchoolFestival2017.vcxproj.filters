@@ -76,16 +76,11 @@
     <Filter Include="リソース ファイル\Example\Well">
       <UniqueIdentifier>{eb86b9be-05b8-45c6-89c8-f91a5437157c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="リソース ファイル\resources">
+      <UniqueIdentifier>{2fd914b8-a463-4b8d-8069-13f297ec413b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>リソース ファイル</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Icon.ico">
-      <Filter>リソース ファイル</Filter>
-    </Image>
     <Image Include="Engine\Splash.png">
       <Filter>リソース ファイル\Engine</Filter>
     </Image>
@@ -112,6 +107,48 @@
     </Image>
     <Image Include="Example\Well\Well.jpg">
       <Filter>リソース ファイル\Example\Well</Filter>
+    </Image>
+    <Image Include="resources\background.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\flower_tulip_kyuukon_single.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="Icon.ico">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\mitsubachi_new.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\nuts_himawari_single.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_blue.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_brown.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_green.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_orange.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_pink.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_purple.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_red.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_skyblue.png">
+      <Filter>リソース ファイル\resources</Filter>
+    </Image>
+    <Image Include="resources\small_flower_yellow.png">
+      <Filter>リソース ファイル\resources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -319,6 +356,9 @@
     <None Include="Example\Well\Well.wavefrontobj">
       <Filter>リソース ファイル\Example\Well</Filter>
     </None>
+    <None Include="resources\unused.zip">
+      <Filter>リソース ファイル\resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\dll(x64)\libmpg123\COPYING.txt">
@@ -388,10 +428,23 @@
     <Font Include="Example\YomogiFont.ttf">
       <Filter>リソース ファイル\Example</Filter>
     </Font>
+    <Font Include="resources\nekokaburi.otf">
+      <Filter>リソース ファイル\resources</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>リソース ファイル\resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

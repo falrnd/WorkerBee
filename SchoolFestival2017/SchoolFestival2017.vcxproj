@@ -175,6 +175,19 @@
     <Image Include="Example\Well\Well.jpg" />
     <Image Include="Example\Windmill.png" />
     <Image Include="Icon.ico" />
+    <Image Include="resources\background.png" />
+    <Image Include="resources\flower_tulip_kyuukon_single.png" />
+    <Image Include="resources\mitsubachi_new.png" />
+    <Image Include="resources\nuts_himawari_single.png" />
+    <Image Include="resources\small_flower_blue.png" />
+    <Image Include="resources\small_flower_brown.png" />
+    <Image Include="resources\small_flower_green.png" />
+    <Image Include="resources\small_flower_orange.png" />
+    <Image Include="resources\small_flower_pink.png" />
+    <Image Include="resources\small_flower_purple.png" />
+    <Image Include="resources\small_flower_red.png" />
+    <Image Include="resources\small_flower_skyblue.png" />
+    <Image Include="resources\small_flower_yellow.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Assets\engine_textures.s3a" />
@@ -245,6 +258,7 @@
     <None Include="Example\Test.json" />
     <None Include="Example\Well\Well.mtl" />
     <None Include="Example\Well\Well.wavefrontobj" />
+    <None Include="resources\unused.zip" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\dll(x64)\libmpg123\COPYING.txt" />
@@ -272,9 +286,13 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf" />
+    <Font Include="resources\nekokaburi.otf" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
