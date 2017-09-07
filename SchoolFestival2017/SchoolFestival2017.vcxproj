@@ -292,7 +292,10 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drag.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Global.hpp" />
+    <ClInclude Include="Unit.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

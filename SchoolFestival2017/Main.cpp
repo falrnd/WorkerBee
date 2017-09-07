@@ -1,118 +1,26 @@
-﻿#include<Siv3D.hpp>
+﻿#pragma once
+
+#include<Siv3D.hpp>
 #include<HamFramework.hpp>
 
-class Drag{
-private:
-	Point clicked;
-public:
-	void update(){
-		if(Input::MouseL.clicked){
-			clicked=Mouse::Pos();
-		}
-	}
-	Point	from() const{return clicked;};
-	Point	to() const{return Mouse::Pos();};
-	int32	duration(){return Input::MouseL.pressedDuration;};
-	double	length(){return from().distanceFrom(to());};
-	double	radian(){ return Atan2((double)(to().y-from().y), to().x-from().x); };
-	Vec2	direction(){ return Vec2(to()-from()).normalize(); };
-	bool	moved(){return from()!=to();};
-};
+#include"Global.hpp"
+#include"Unit.hpp"
+#include"Drag.hpp"
 
-/*
-inline Line getLine(const Vec2& base, double length, double radian){
-	return Line(base, {base.x+length*cos(radian),base.y+length*sin(radian)});
-}
-*/
 inline Line getLine(const Vec2& base, double length, const Vec2& direction){
 	return Line(base, base+Vec2(direction).setLength(length));
 }
-
-class Unit{
-private:
-	static constexpr double friction=-4.5/60;
-public:
-	Vec2 pos,speed{0,0};
-	Unit(const Vec2& pos={0,0})
-		:pos(pos){
-	};
-	void update(){
-		pos.moveBy(speed);
-		/*
-		const double dir=Atan2(speed.y, speed.x);
-		const double dx=cos(dir)*-friction,dy=sin(dir)*-friction;
-		LOG_DEBUG(dir);
-		*/
-		if(!speed.isZero()){
-			const Vec2 dir=speed.normalized();
-			const double dx=dir.x*-friction, dy=dir.y*-friction;
-			LOG_DEBUG(dir);
-
-			if(Abs(speed.x)<dx)
-				speed.x=0;
-			else
-				speed.x-=dx;
-			if(Abs(speed.y)<dy)
-				speed.y=0;
-			else
-				speed.y-=dy;
-		}
-	}
-	/*
-	void accel(double v, double radian){
-		speed.moveBy(cos(radian)*v, sin(radian)*v);
-	}
-	*/
-	void accel(double v, const Vec2& direction){
-		speed.moveBy(Vec2(direction).setLength(v));
-	}
-};
-
-enum class Scene{
-	Title,
-	Game,
-	Result,
-	Ranking
-};
-struct GlobalData{
-
-};
-using MySceneManager=SceneManager<Scene,GlobalData>;
-namespace Flower{
-	const String blue	=L"flower_blue";
-	const String brown	=L"flower_brown";
-	const String green	=L"flower_green";
-	const String orange	=L"flower_orange";
-	const String pink	=L"flower_pink";
-	const String purple	=L"flower_purple";
-	const String red	=L"flower_red";
-	const String sky	=L"flower_sky";
-	const String yellow	=L"flower_yellow";
+inline double vec2ToRadian(const Vec2& v){
+	return Atan2(v.y,v.x);
 }
 
-String SF=L"flower_";
-String root=L"resources/";
-inline void _register(const String& v){
-	TextureAsset::Register(v,root+L"small_"+v+L".png");
-}
 void Main(){
-	Window::Resize(960,640);
+	if(!registerAssets()){
+		LOG(L"File Loading Failed");
+		return;
+	}
 
-	FontManager::Register(root+L"nekokaburi.otf");
-	FontAsset::Register(L"font",40,L"ねこかぶり");
-	_register(Flower::blue);
-	_register(Flower::brown);
-	_register(Flower::green);
-	_register(Flower::orange);
-	_register(Flower::pink);
-	_register(Flower::purple);
-	_register(Flower::red);
-	_register(Flower::sky);
-	_register(Flower::yellow);
-	TextureAsset::Register(L"BG",root+L"background.png");
-	TextureAsset::Register(L"nuts",root+L"nuts_himawari_single.png");
-	TextureAsset::Register(L"kyuukon",root+L"flower_tulip_kyuukon_single.png");
-	TextureAsset::Register(L"bee",root+L"mitsubachi_new.png");
+	Window::Resize(960,640);
 
 	MySceneManager mng;
 
@@ -125,6 +33,8 @@ void Main(){
 		700.0);
 	Graphics::SetBackground(Palette::Green);
 	while (System::Update()){
+		TextureAsset(L"BG").draw();
+
 		drag.update();
 		unit.update();
 
@@ -133,21 +43,27 @@ void Main(){
 			powercircleease.start();
 		}
 
-		FontAsset(L"font").draw(L"ほげ");
+		//FontAsset(L"font").draw(L"ほげ");
 
 		if(Input::MouseL.pressed){
 			getLine(drag.from(), drag.duration()/1000.0*150+3.2, drag.direction())
-				.drawArrow( 9.0,{15.0,15.0},Palette::Black);
+				.drawArrow( 9.0,{15.0,15.0},{100,100,100});
 			getLine(drag.from(), drag.duration()/1000.0*150    , drag.direction())
 				.drawArrow( 5.0,{10.0,10.0},Palette::White);
-			LOG_DEBUG(drag.duration());
 			Circle(drag.from(),powercircleease.easeOut()+drag.duration()/120.0)
-				.drawShadow({0,0},10,3,Palette::Black)
+				.drawShadow({0,0},10,2.5,Palette::Black)
 				.draw(Palette::White);
 		}
 		if(Input::MouseL.released&&drag.moved()){
 			unit.accel(drag.duration()/3.0/60.0, drag.direction());
 		}
-		Circle(unit.pos,10).draw(Palette::Red);
+
+		//Circle(unit.pos,30).draw({165,42,42,200});
+		(unit.speed.x>=0?
+			TextureAsset(Name::bee).mirror():
+			TextureAsset(Name::bee)
+			)
+			.scale(0.2)
+			.drawAt(unit.pos);
 	}
 }
