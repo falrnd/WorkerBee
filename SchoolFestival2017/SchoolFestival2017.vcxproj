@@ -293,8 +293,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drag.hpp" />
-    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameScene.hpp" />
     <ClInclude Include="Global.hpp" />
+    <ClInclude Include="RankScene.hpp" />
+    <ClInclude Include="ResultScene.hpp" />
+    <ClInclude Include="RuleScene.hpp" />
+    <ClInclude Include="TitleScene.hpp" />
     <ClInclude Include="Unit.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

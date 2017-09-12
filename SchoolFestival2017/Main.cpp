@@ -7,6 +7,12 @@
 #include"Unit.hpp"
 #include"Drag.hpp"
 
+#include"GameScene.hpp"
+#include"ResultScene.hpp"
+#include"TitleScene.hpp"
+#include"RankScene.hpp"
+#include"RuleScene.hpp"
+
 inline Line getLine(const Vec2& base, double length, const Vec2& direction){
 	return Line(base, base+Vec2(direction).setLength(length));
 }
@@ -23,6 +29,11 @@ void Main(){
 	Window::Resize(960,640);
 
 	MySceneManager mng;
+	mng.add<TitleScene>(Scene::Title);
+	mng.add<GameScene>(Scene::Game);
+	mng.add<RuleScene>(Scene::Rule);
+	mng.add<ResultScene>(Scene::Result);
+	mng.add<RankScene>(Scene::Ranking);
 
 	Drag drag;
 	Unit unit({240,240});

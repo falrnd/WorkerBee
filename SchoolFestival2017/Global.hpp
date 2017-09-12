@@ -5,7 +5,8 @@ enum class Scene{
 	Title,
 	Game,
 	Result,
-	Ranking
+	Ranking,
+	Rule
 };
 struct Object{
 	Point pos;
