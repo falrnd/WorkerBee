@@ -1,10 +1,65 @@
+#pragma once
+
+#include<Siv3D.hpp>
+
 #include"Global.hpp"
+
+#include"Unit.hpp"
+#include"Drag.hpp"
+
+inline Line getLine(const Vec2& base, double length, const Vec2& direction){
+	return Line(base, base+Vec2(direction).setLength(length));
+}
+inline double vec2ToRadian(const Vec2& v){
+	return Atan2(v.y,v.x);
+}
+
 class GameScene:public MySceneManager::Scene{
 public:
+	Drag drag;
+	Unit unit;
+	EasingController<double> powercircleease;
+	void init() override{
+		drag=Drag();
+		unit=Unit({240,240});
+		powercircleease=EasingController<double>(
+			0.0,
+			10.0,
+			Easing::Circ,
+			700.0
+			);
+	}
 	void update() override{
+		drag.update();
+		unit.update();
 
+		if(Input::MouseL.clicked){
+			powercircleease.reset();
+			powercircleease.start();
+		}
+
+		//FontAsset(L"font").draw(L"‚Ù‚°");
+
+		if(Input::MouseL.released&&drag.moved()){
+			unit.accel(drag.duration()/3.0/60.0, drag.direction());
+		}
 	}
 	void draw() const override{
-
+		if(Input::MouseL.pressed){
+			getLine(drag.from(), drag.duration()/1000.0*150+3.2, drag.direction())
+				.drawArrow( 9.0,{15.0,15.0},{100,100,100});
+			getLine(drag.from(), drag.duration()/1000.0*150    , drag.direction())
+				.drawArrow( 5.0,{10.0,10.0},Palette::White);
+			Circle(drag.from(),powercircleease.easeOut()+drag.duration()/120.0)
+				.drawShadow({0,0},10,2.5,Palette::Black)
+				.draw(Palette::White);
+		}
+		//Circle(unit.pos,30).draw({165,42,42,200});
+		(unit.speed.x>=0?
+			TextureAsset(Name::bee).mirror():
+			TextureAsset(Name::bee)
+			)
+			.scale(0.2)
+			.drawAt(unit.pos);
 	}
 };
