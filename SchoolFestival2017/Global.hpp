@@ -53,22 +53,3 @@ namespace Name{
 		};
 	}
 }
-
-inline bool _registerflower(const String& v){
-	return TextureAsset::Register(v,L"resources/small_"+v+L".png");
-}
-
-bool registerAssets(){
-	bool error=false;
-
-	error|=!FontManager::Register(L"resources/nekokaburi.otf");
-	error|=!FontAsset::Register(L"font",40,L"‚Ë‚±‚©‚Ô‚è");
-	for(auto c:Name::Flower::colors)
-		error|=!_registerflower(c);
-	error|=!TextureAsset::Register(Name::BG,			L"resources/background.png");
-	error|=!TextureAsset::Register(Name::Seed::nuts,	L"resources/nuts_himawari_single.png");
-	error|=!TextureAsset::Register(Name::Seed::kyuukon,	L"resources/flower_tulip_kyuukon_single.png");
-	error|=!TextureAsset::Register(Name::bee,			L"resources/mitsubachi_new.png");
-
-	return !error;
-}
