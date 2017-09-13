@@ -11,8 +11,8 @@ public:
 	}
 	Point	from() const{return clicked;};
 	Point	to() const{return Mouse::Pos();};
-	int32	duration(){return Input::MouseL.pressedDuration;};
-	double	length(){return from().distanceFrom(to());};
-	Vec2	direction(){ return Vec2(to()-from()).normalize(); };
-	bool	moved(){return from()!=to();};
+	int32	duration() const{return Input::MouseL.pressedDuration;};
+	double	length() const{return from().distanceFrom(to());};
+	Vec2	direction() const{ return Vec2(to()-from()).normalize(); };
+	bool	moved() const{return from()!=to();};
 };

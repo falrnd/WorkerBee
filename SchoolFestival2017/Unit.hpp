@@ -13,7 +13,6 @@ public:
 		if(!speed.isZero()){
 			const Vec2 dir=speed.normalized();
 			const double dx=dir.x*-friction, dy=dir.y*-friction;
-			LOG_DEBUG(dir);
 
 			if(Abs(speed.x)<dx)
 				speed.x=0;
