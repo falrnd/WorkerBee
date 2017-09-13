@@ -431,6 +431,9 @@
     <Font Include="resources\nekokaburi.otf">
       <Filter>リソース ファイル\resources</Filter>
     </Font>
+    <Font Include="resources\HonyaJi-Re.ttf">
+      <Filter>リソース ファイル\resources</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

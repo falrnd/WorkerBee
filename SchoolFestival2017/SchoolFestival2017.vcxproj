@@ -286,6 +286,7 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf" />
+    <Font Include="resources\HonyaJi-Re.ttf" />
     <Font Include="resources\nekokaburi.otf" />
   </ItemGroup>
   <ItemGroup>

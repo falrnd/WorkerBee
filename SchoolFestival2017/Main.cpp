@@ -17,8 +17,8 @@ inline bool _registerflower(const String& v){
 bool registerAssets(){
 	bool error=false;
 
-	error|=!FontManager::Register(L"resources/nekokaburi.otf");
-	error|=!FontAsset::Register(L"font",40,L"ねこかぶり");
+	error|=!FontManager::Register(L"resources/HonyaJi-Re.ttf");
+	error|=!FontAsset::Register(Name::font,Name::fontsize,L"ほにゃ字Re");
 	for(auto c:Name::Flower::colors)
 		error|=!_registerflower(c);
 	error|=!TextureAsset::Register(Name::BG,			L"resources/background.png");

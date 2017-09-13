@@ -10,9 +10,11 @@ enum class Scene{
 };
 struct Object{
 	Point pos;
-	int id;
+	size_t id;
+	int time;
 };
 class GlobalData{
+public:
 	const int seedslimit=3;
 	int score;
 	Array<Object>seeds,flowers;
@@ -20,6 +22,8 @@ class GlobalData{
 using MySceneManager=SceneManager<Scene,GlobalData>;
 
 namespace Name{
+	const String font	=L"font";
+	constexpr int fontsize	=20;
 	const String BG		=L"BG";
 	const String bee	=L"bee";
 	namespace Seed{
@@ -38,7 +42,7 @@ namespace Name{
 		const String pink	=L"flower_pink"  ;
 		const String purple	=L"flower_purple";
 		const String red	=L"flower_red"   ;
-		const String sky	=L"flower_sky"   ;
+		const String sky	=L"flower_skyblue";
 		const String yellow	=L"flower_yellow";
 		const Array<String> colors={
 			blue,
