@@ -21,7 +21,9 @@ public:
 	Drag drag;
 	Unit unit;
 	EasingController<double> powercircleease;
-	Stopwatch stopwatch;
+	Stopwatch stopwatch_start;
+	Stopwatch stopwatch_main;
+	Stopwatch stopwatch_finish;
 	void init() override{
 		drag=Drag();
 		unit=Unit({240,240});
@@ -32,94 +34,128 @@ public:
 			700.0
 			);
 		m_data->score=0;
-
-		stopwatch=Stopwatch(true);
+		m_data->seeds.clear();
+		m_data->flowers.clear();
+		stopwatch_start=Stopwatch();
+		stopwatch_main=Stopwatch();
+		stopwatch_finish=Stopwatch();
 	}
 	void update() override{
+		{
+			//時間制御
+			if(!stopwatch_start.isActive())
+				stopwatch_start.start();
+			if(stopwatch_start.ms()>1500){
+				if(!stopwatch_main.isActive())
+					stopwatch_main.start();
+			}
+			if(stopwatch_main.ms()>30000){
+				stopwatch_main.pause();
+				stopwatch_finish.start();
+			}
+			if(stopwatch_finish.ms()>2000){
+				changeScene(Scene::Result);
+			}
+		}
+
 		drag.update();
 		unit.update();
-
+		//溜めの円のサイズのリセット
 		if(Input::MouseL.clicked){
 			powercircleease.reset();
 			powercircleease.start();
 		}
-
-		auto it = m_data->seeds.begin();
-		const int curtimemilli = stopwatch.ms();
-		while(it != m_data->seeds.end()){
-			if(it->pos.distanceFrom(unit.pos)<=hitsize){
-				++m_data->score;
-				m_data->flowers.push_back(
+		{
+			//種の当たり判定
+			auto it = m_data->seeds.begin();
+			const int curtimemilli = stopwatch_main.ms();
+			while(it != m_data->seeds.end()){
+				if(it->pos.distanceFrom(unit.pos)<=hitsize){
+					++m_data->score;
+					m_data->flowers.push_back(
+						Object{
+							Point(it->pos),
+							Random(Name::Flower::colors.size()-1),
+							curtimemilli
+						}
+					);
+					it = m_data->seeds.erase(it);
+				}else{
+					++it;
+				}
+			}
+			//種配置
+			while(m_data->seedslimit > m_data->seeds.size()){
+				m_data->seeds.push_back(
 					Object{
-						Point(it->pos),
-						Random(Name::Flower::colors.size()-1),
+						Point{Random(960),Random(640)},
+						Random(Name::Seed::colors.size()-1),
 						curtimemilli
 					}
 				);
-				it = m_data->seeds.erase(it);
-			}else{
-				++it;
 			}
 		}
-
-		while(m_data->seedslimit > m_data->seeds.size()){
-			m_data->seeds.push_back(
-				Object{
-					Point{Random(960),Random(640)},
-					Random(Name::Seed::colors.size()-1),
-					curtimemilli
-				}
-			);
-		}
-
-		//FontAsset(L"font").draw(L"ほげ");
+		//自機移動
  		if(Input::MouseL.released&&drag.moved()){
 			unit.accel(drag.duration()/3.0/60.0, drag.direction());
 		}
 	}
 	void draw() const override{
-
-		const int curtimemilli = stopwatch.ms();
-
-		constexpr bool DEBUG=false;
-
-		for(Object& o:m_data->flowers){
-			const int livetime=curtimemilli-o.time;
-			TextureAsset(Name::Flower::colors[o.id])
-				.scale(EaseOut(0.0,0.5,Easing::Elastic,Min(livetime/1000.0,0.5)))
- 				.rotate(livetime/4000.0*TwoPi)
-				.drawAt(o.pos);
+		{
+			//スタート
+			const int m=stopwatch_start.ms();
+			if(m<1000){
+				FontAsset(Name::font)(L"よーい・・・").drawCenter(Window::Center());
+				return;
+			}else if(m<1500){
+				FontAsset(Name::font)(L"スタート！").drawCenter(Window::Center());
+				return;
+			}
 		}
 
-		FontAsset(Name::font)(ToString(m_data->score)+L"こ").draw({50,50}, Palette::White);
-		FontAsset(Name::font)(L"のこり"+ToString(30-stopwatch.s())+L"びょう").draw({50,100}, Palette::White);
+		if(stopwatch_main.isActive()){
+			//プレイ中
+			const int curtimemilli = stopwatch_main.ms();
+			for(Object& o:m_data->flowers){
+				const int livetime=curtimemilli-o.time;
+				TextureAsset(Name::Flower::colors[o.id])
+					.scale(EaseOut(0.0,0.5,Easing::Elastic,Min(livetime/1000.0,0.5)))
+ 					.rotate(livetime/4000.0*TwoPi)
+					.drawAt(o.pos);
+			}
 
-		for(Object& o:m_data->seeds){
-			if(DEBUG)
-				Circle(o.pos, hitsize).draw(Palette::Blue);
-			const int livetime=curtimemilli-o.time;
-			TextureAsset(Name::Seed::colors[o.id])
-				.scale(EaseOut(0.0, 0.3, Easing::Elastic, Min(livetime/1000.0, 0.5)))
-				.rotate(livetime/4000.0*TwoPi)
-				.drawAt(o.pos);
+			FontAsset(Name::font)(ToString(m_data->score)+L"こ").draw({50,50}, Palette::White);
+			FontAsset(Name::font)(L"のこり"+ToString(30-stopwatch_main.s())+L"びょう").draw({50,100}, Palette::White);
+
+			for(Object& o:m_data->seeds){
+				const int livetime=curtimemilli-o.time;
+				TextureAsset(Name::Seed::colors[o.id])
+					.scale(EaseOut(0.0, 0.3, Easing::Elastic, Min(livetime/1000.0, 0.5)))
+					.rotate(livetime/4000.0*TwoPi)
+					.drawAt(o.pos);
+			}
+
+			//Circle(unit.pos,30).draw({165,42,42,200});
+			(unit.speed.x>=0?
+				TextureAsset(Name::bee).mirror():
+				TextureAsset(Name::bee)
+				)
+				.scale(0.2)
+				.drawAt(unit.pos);
+
+			if(Input::MouseL.pressed){
+				getLine(drag.from(), drag.duration()/1000.0*180+3.2, drag.direction())
+					.drawArrow(9.0, {15.0,15.0}, {100,100,100});
+				getLine(drag.from(), drag.duration()/1000.0*180, drag.direction())
+					.drawArrow(5.0, {10.0,10.0}, Palette::White);
+				Circle(drag.from(), powercircleease.easeOut()+drag.duration()/120.0)
+					.drawShadow({0,0}, 10, 2.5, Palette::Black)
+					.draw(Palette::White);
+			}
 		}
-
-		//Circle(unit.pos,30).draw({165,42,42,200});
-		(unit.speed.x>=0?
-			TextureAsset(Name::bee).mirror():
-			TextureAsset(Name::bee)
-			)
-			.scale(0.2)
-			.drawAt(unit.pos);
-
-		if(Input::MouseL.pressed){
-			getLine(drag.from(), drag.duration()/1000.0*180+3.2, drag.direction())
-				.drawArrow(9.0, {15.0,15.0}, {100,100,100});
-			getLine(drag.from(), drag.duration()/1000.0*180, drag.direction())
-				.drawArrow(5.0, {10.0,10.0}, Palette::White);
-			Circle(drag.from(), powercircleease.easeOut()+drag.duration()/120.0)
-				.drawShadow({0,0}, 10, 2.5, Palette::Black)
-				.draw(Palette::White);
+		if(stopwatch_finish.isActive()){
+			//終了
+			FontAsset(Name::font)(L"おしまい！").drawCenter(Window::Center());
 		}
 	}
 };
