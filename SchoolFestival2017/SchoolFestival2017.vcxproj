@@ -258,6 +258,7 @@
     <None Include="Example\Test.json" />
     <None Include="Example\Well\Well.mtl" />
     <None Include="Example\Well\Well.wavefrontobj" />
+    <None Include="resources\HonyaJi-Re.dat" />
     <None Include="resources\unused.zip" />
   </ItemGroup>
   <ItemGroup>
@@ -286,8 +287,6 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf" />
-    <Font Include="resources\HonyaJi-Re.ttf" />
-    <Font Include="resources\nekokaburi.otf" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

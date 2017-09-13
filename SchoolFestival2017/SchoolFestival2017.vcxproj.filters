@@ -359,6 +359,9 @@
     <None Include="resources\unused.zip">
       <Filter>リソース ファイル\resources</Filter>
     </None>
+    <None Include="resources\HonyaJi-Re.dat">
+      <Filter>リソース ファイル\resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\dll(x64)\libmpg123\COPYING.txt">
@@ -427,12 +430,6 @@
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf">
       <Filter>リソース ファイル\Example</Filter>
-    </Font>
-    <Font Include="resources\nekokaburi.otf">
-      <Filter>リソース ファイル\resources</Filter>
-    </Font>
-    <Font Include="resources\HonyaJi-Re.ttf">
-      <Filter>リソース ファイル\resources</Filter>
     </Font>
   </ItemGroup>
   <ItemGroup>
