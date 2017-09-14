@@ -430,7 +430,7 @@
     <Text Include="resources\font\SIL_Open_Font_License_1.1.txt">
       <Filter>リソース ファイル\resources\font</Filter>
     </Text>
-    <Text Include="highscore.txt" />
+    <Text Include="highscore.fal" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Example\Sound.mp3">

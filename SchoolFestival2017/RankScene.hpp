@@ -3,13 +3,11 @@
 class RankScene:public MySceneManager::Scene{
 public:
 	Array<String> strs;
-	bool loadfailed=true;
 	void init() override{
-		TextReader reader(L"highscore.txt");
+		TextReader reader(Name::File::highscore);
 		for(int i=0;i<10;++i){
 			auto o=reader.readLine();
 			if(!o.has_value()){
-				loadfailed=true;
 				return;
 			}
 			strs.push_back(*o);
@@ -25,12 +23,12 @@ public:
 			.drawCenter(Window::Center().x,120);
 		FontAsset(Name::font)(L"クリックで戻る")
 			.drawCenter(Window::Center().x,540);
-		if(loadfailed){
+		if(strs.size()==0){
 			FontAsset(Name::font)(L"読み込めませんでした……")
 				.drawCenter(Window::Center());
 		}else{
-			for(int i=0;i<10;i+=2){
-				FontAsset(Name::font)(strs[i])
+			for(int i=0;i<strs.size();i+=2){
+				FontAsset(Name::font)(strs[i]+L"さん")
 					.draw(100,i*35+150);
 				FontAsset(Name::font)(strs[i+1])
 					.draw(700,i*35+150);
