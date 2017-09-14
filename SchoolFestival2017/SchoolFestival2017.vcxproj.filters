@@ -150,6 +150,9 @@
     <Image Include="resources\small_flower_yellow.png">
       <Filter>リソース ファイル\resources</Filter>
     </Image>
+    <Image Include="resources\nuts_himawari_single_small.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Assets\engine_textures.s3a">
@@ -359,6 +362,9 @@
     <None Include="resources\unused.zip">
       <Filter>リソース ファイル\resources</Filter>
     </None>
+    <None Include="resources\HonyaJi-Re.dat">
+      <Filter>リソース ファイル\resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Engine\dll(x64)\libmpg123\COPYING.txt">
@@ -415,6 +421,8 @@
     <Text Include="Example\Shaders\Wave2DPointSprites.hlsl">
       <Filter>リソース ファイル\Example\Shaders</Filter>
     </Text>
+    <Text Include="resources\font\README_MgenPlus.txt" />
+    <Text Include="resources\font\SIL_Open_Font_License_1.1.txt" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Example\Sound.mp3">
@@ -428,9 +436,7 @@
     <Font Include="Example\YomogiFont.ttf">
       <Filter>リソース ファイル\Example</Filter>
     </Font>
-    <Font Include="resources\nekokaburi.otf">
-      <Filter>リソース ファイル\resources</Filter>
-    </Font>
+    <Font Include="resources\font\rounded-x-mgenplus-1pp-regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
