@@ -22,8 +22,8 @@ using MySceneManager=SceneManager<Scene,GlobalData>;
 
 namespace Name{
 	const String font		=L"font";
+	const String font_large	=L"font_l";
 	const String fontname	=L"Rounded-X Mgen+ 1pp regular";
-	constexpr int fontsize	=35;
 	namespace File{
 		const String font	=L"resources/font/rounded-x-mgenplus-1pp-regular.ttf";
 		const String BG		=L"resources/background.png";
@@ -63,4 +63,22 @@ namespace Name{
 			yellow
 		};
 	}
+}
+inline bool _registerflower(const String& v){
+	return TextureAsset::Register(v,L"resources/small_"+v+L".png");
+}
+bool registerAssets(){
+	bool error=false;
+
+	error|=!FontManager::Register(Name::File::font);
+	error|=!FontAsset::Register(Name::font		,35,Name::fontname);
+	error|=!FontAsset::Register(Name::font_large,50,Name::fontname);
+	for(auto c:Name::Flower::colors)
+		error|=!_registerflower(c);
+	error|=!TextureAsset::Register(Name::BG				,Name::File::BG);
+	error|=!TextureAsset::Register(Name::bee			,Name::File::bee);
+	error|=!TextureAsset::Register(Name::Seed::kyuukon	,Name::File::kyuukon);
+	error|=!TextureAsset::Register(Name::Seed::nuts		,Name::File::nuts);
+
+	return !error;
 }
