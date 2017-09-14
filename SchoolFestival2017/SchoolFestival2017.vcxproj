@@ -281,6 +281,7 @@
     <Text Include="Example\Shaders\Wave2DPointSprites.hlsl" />
     <Text Include="Example\Test.txt" />
     <Text Include="Example\素材について.txt" />
+    <Text Include="highscore.txt" />
     <Text Include="resources\font\README_MgenPlus.txt" />
     <Text Include="resources\font\SIL_Open_Font_License_1.1.txt" />
   </ItemGroup>

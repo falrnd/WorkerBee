@@ -10,7 +10,7 @@ public:
 			changeScene(Scene::Game);
 		}
 		if(rank.leftClicked){
-			changeScene(Scene::Ranking);
+			changeScene(Scene::Ranking,0);
 		}
 	}
 	void draw() const override{
