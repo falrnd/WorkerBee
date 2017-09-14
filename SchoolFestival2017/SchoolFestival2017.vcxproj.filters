@@ -79,6 +79,9 @@
     <Filter Include="リソース ファイル\resources">
       <UniqueIdentifier>{2fd914b8-a463-4b8d-8069-13f297ec413b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="リソース ファイル\resources\font">
+      <UniqueIdentifier>{46e86cc8-1c78-4ad4-accc-3655204ae866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Engine\Splash.png">
@@ -151,7 +154,7 @@
       <Filter>リソース ファイル\resources</Filter>
     </Image>
     <Image Include="resources\nuts_himawari_single_small.png">
-      <Filter>リソース ファイル</Filter>
+      <Filter>リソース ファイル\resources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -421,8 +424,12 @@
     <Text Include="Example\Shaders\Wave2DPointSprites.hlsl">
       <Filter>リソース ファイル\Example\Shaders</Filter>
     </Text>
-    <Text Include="resources\font\README_MgenPlus.txt" />
-    <Text Include="resources\font\SIL_Open_Font_License_1.1.txt" />
+    <Text Include="resources\font\README_MgenPlus.txt">
+      <Filter>リソース ファイル\resources\font</Filter>
+    </Text>
+    <Text Include="resources\font\SIL_Open_Font_License_1.1.txt">
+      <Filter>リソース ファイル\resources\font</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Example\Sound.mp3">
@@ -436,7 +443,9 @@
     <Font Include="Example\YomogiFont.ttf">
       <Filter>リソース ファイル\Example</Filter>
     </Font>
-    <Font Include="resources\font\rounded-x-mgenplus-1pp-regular.ttf" />
+    <Font Include="resources\font\rounded-x-mgenplus-1pp-regular.ttf">
+      <Filter>リソース ファイル\resources\font</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

@@ -47,7 +47,7 @@ void Main(){
 	mng.init(Scene::Game);
 
 	while (System::Update()){
-		TextureAsset(L"BG").draw();
+		TextureAsset(Name::BG).draw();
 
 		if(!mng.updateAndDraw())
 			break;
