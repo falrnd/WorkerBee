@@ -179,6 +179,7 @@
     <Image Include="resources\flower_tulip_kyuukon_single.png" />
     <Image Include="resources\mitsubachi_new.png" />
     <Image Include="resources\nuts_himawari_single.png" />
+    <Image Include="resources\nuts_himawari_single_small.png" />
     <Image Include="resources\small_flower_blue.png" />
     <Image Include="resources\small_flower_brown.png" />
     <Image Include="resources\small_flower_green.png" />
@@ -280,6 +281,8 @@
     <Text Include="Example\Shaders\Wave2DPointSprites.hlsl" />
     <Text Include="Example\Test.txt" />
     <Text Include="Example\素材について.txt" />
+    <Text Include="resources\font\README_MgenPlus.txt" />
+    <Text Include="resources\font\SIL_Open_Font_License_1.1.txt" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Example\Sound.mp3" />
@@ -287,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Example\YomogiFont.ttf" />
+    <Font Include="resources\font\rounded-x-mgenplus-1pp-regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

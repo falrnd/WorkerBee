@@ -17,14 +17,14 @@ inline bool _registerflower(const String& v){
 bool registerAssets(){
 	bool error=false;
 
-	error|=!FontManager::Register(L"resources/HonyaJi-Re.dat");
-	error|=!FontAsset::Register(Name::font,Name::fontsize,L"ほにゃ字Re");
+	error|=!FontManager::Register(Name::File::font);
+	error|=!FontAsset::Register(Name::font,Name::fontsize,Name::fontname);
 	for(auto c:Name::Flower::colors)
 		error|=!_registerflower(c);
-	error|=!TextureAsset::Register(Name::BG,			L"resources/background.png");
-	error|=!TextureAsset::Register(Name::Seed::nuts,	L"resources/nuts_himawari_single.png");
-	error|=!TextureAsset::Register(Name::Seed::kyuukon,	L"resources/flower_tulip_kyuukon_single.png");
-	error|=!TextureAsset::Register(Name::bee,			L"resources/mitsubachi_new.png");
+	error|=!TextureAsset::Register(Name::BG				,Name::File::BG);
+	error|=!TextureAsset::Register(Name::bee			,Name::File::bee);
+	error|=!TextureAsset::Register(Name::Seed::kyuukon	,Name::File::kyuukon);
+	error|=!TextureAsset::Register(Name::Seed::nuts		,Name::File::nuts);
 
 	return !error;
 }

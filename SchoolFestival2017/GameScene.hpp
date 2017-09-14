@@ -16,7 +16,8 @@ inline double vec2ToRadian(const Vec2& v){
 
 class GameScene:public MySceneManager::Scene{
 private:
-	const int hitsize=50;
+	const int hitsize	=50;
+	const int seedslimit=5;
 public:
 	Drag drag;
 	Unit unit;
@@ -26,7 +27,7 @@ public:
 	Stopwatch stopwatch_finish;
 	void init() override{
 		drag=Drag();
-		unit=Unit({240,240});
+		unit=Unit(Window::Center());
 		powercircleease=EasingController<double>(
 			0.0,
 			10.0,
@@ -45,15 +46,15 @@ public:
 			//ŽžŠÔ§Œä
 			if(!stopwatch_start.isActive())
 				stopwatch_start.start();
-			if(stopwatch_start.ms()>1500){
-				if(!stopwatch_main.isActive())
-					stopwatch_main.start();
+			if(stopwatch_start.isActive()&&stopwatch_start.ms()>1500){
+				stopwatch_main.start();
+				stopwatch_start.pause();
 			}
 			if(stopwatch_main.ms()>30000){
 				stopwatch_main.pause();
 				stopwatch_finish.start();
 			}
-			if(stopwatch_finish.ms()>2000){
+			if(stopwatch_finish.ms()>2500){
 				changeScene(Scene::Result);
 			}
 		}
@@ -74,10 +75,10 @@ public:
 					++m_data->score;
 					m_data->flowers.push_back(
 						Object{
-							Point(it->pos),
-							Random(Name::Flower::colors.size()-1),
-							curtimemilli
-						}
+						Point(it->pos),
+						Random(Name::Flower::colors.size()-1),
+						curtimemilli
+					}
 					);
 					it = m_data->seeds.erase(it);
 				}else{
@@ -85,18 +86,18 @@ public:
 				}
 			}
 			//Ží”z’u
-			while(m_data->seedslimit > m_data->seeds.size()){
+			while(seedslimit > m_data->seeds.size()){
 				m_data->seeds.push_back(
 					Object{
-						Point{Random(960),Random(640)},
-						Random(Name::Seed::colors.size()-1),
-						curtimemilli
-					}
+					RandomPoint(Window::ClientRect()),
+					Random(Name::Seed::colors.size()-1),
+					curtimemilli
+				}
 				);
 			}
 		}
 		//Ž©‹@ˆÚ“®
- 		if(Input::MouseL.released&&drag.moved()){
+		if(!stopwatch_main.isPaused()&&Input::MouseL.released&&drag.moved()){
 			unit.accel(drag.duration()/3.0/60.0, drag.direction());
 		}
 	}
@@ -120,12 +121,14 @@ public:
 				const int livetime=curtimemilli-o.time;
 				TextureAsset(Name::Flower::colors[o.id])
 					.scale(EaseOut(0.0,0.5,Easing::Elastic,Min(livetime/1000.0,0.5)))
- 					.rotate(livetime/4000.0*TwoPi)
+					.rotate(livetime/4000.0*TwoPi)
 					.drawAt(o.pos);
 			}
 
-			FontAsset(Name::font)(ToString(m_data->score)+L"‚±").draw({50,50}, Palette::White);
-			FontAsset(Name::font)(L"‚Ì‚±‚è"+ToString(30-stopwatch_main.s())+L"‚Ñ‚å‚¤").draw({50,100}, Palette::White);
+			FontAsset(Name::font)(ToString(m_data->score)+L"‚±")
+				.draw({40,80}, Palette::White);
+			FontAsset(Name::font)(L"‚Ì‚±‚è"+ToString(30-stopwatch_main.s())+L"‚Ñ‚å‚¤")
+				.draw({40,30}, Palette::White);
 
 			for(Object& o:m_data->seeds){
 				const int livetime=curtimemilli-o.time;
@@ -143,7 +146,7 @@ public:
 				.scale(0.2)
 				.drawAt(unit.pos);
 
-			if(Input::MouseL.pressed){
+			if(Input::MouseL.pressed&&!stopwatch_main.isPaused()){
 				getLine(drag.from(), drag.duration()/1000.0*180+3.2, drag.direction())
 					.drawArrow(9.0, {15.0,15.0}, {100,100,100});
 				getLine(drag.from(), drag.duration()/1000.0*180, drag.direction())
