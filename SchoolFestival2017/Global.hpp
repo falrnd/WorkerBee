@@ -22,11 +22,11 @@ public:
 using MySceneManager=SceneManager<Scene,GlobalData>;
 
 namespace Name{
-
-	const String font		=L"font";
-	const String font_large	=L"font_l";
-	const String font_small	=L"font_s";
-	const String fontname	=L"Rounded-X Mgen+ 1pp regular";
+	const String
+		font		=L"font",
+		font_large	=L"font_l",
+		font_small	=L"font_s",
+		fontname	=L"Rounded-X Mgen+ 1pp regular";
 	namespace File{
 		const String highscore=L"highscore.fal";
 		const String font	=L"resources/font/rounded-x-mgenplus-1pp-regular.ttf";
@@ -46,15 +46,16 @@ namespace Name{
 		};
 	}
 	namespace Flower{
-		const String blue	=L"flower_blue"  ;
-		const String brown	=L"flower_brown" ;
-		const String green	=L"flower_green" ;
-		const String orange	=L"flower_orange";
-		const String pink	=L"flower_pink"  ;
-		const String purple	=L"flower_purple";
-		const String red	=L"flower_red"   ;
-		const String sky	=L"flower_skyblue";
-		const String yellow	=L"flower_yellow";
+		const String
+			blue	=L"flower_blue"  ,
+			brown	=L"flower_brown" ,
+			green	=L"flower_green" ,
+			orange	=L"flower_orange",
+			pink	=L"flower_pink"  ,
+			purple	=L"flower_purple",
+			red		=L"flower_red"   ,
+			sky		=L"flower_skyblue",
+			yellow	=L"flower_yellow";
 		const Array<String> colors={
 			blue,
 			brown,
@@ -72,6 +73,9 @@ namespace Name{
 namespace GColor{
 	const Color darkblack={0,0,0,150};
 	const Color lightblack={0,0,0,100};
+	const Color darkbrown={165,42,42,150};
+	const Color lightbrown={165,42,42,100};
+	const Color brown=Palette::Brown;
 }
 
 inline bool _registerflower(const String& v){

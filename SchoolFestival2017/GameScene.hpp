@@ -17,7 +17,7 @@ inline double vec2ToRadian(const Vec2& v){
 class GameScene:public MySceneManager::Scene{
 private:
 	const int hitsize	=50;
-	const int seedslimit=5;
+	const size_t seedslimit=5;
 public:
 	Drag drag;
 	Unit unit;

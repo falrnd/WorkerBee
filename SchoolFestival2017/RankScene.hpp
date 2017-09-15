@@ -27,11 +27,11 @@ public:
 			FontAsset(Name::font)(L"“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½cc")
 				.drawCenter(Window::Center());
 		}else{
-			for(int i=0;i<strs.size();i+=2){
+			for(size_t i=0;i<strs.size();i+=2){
 				FontAsset(Name::font)(strs[i]+L"‚³‚ñ")
-					.draw(100,i*35+150);
+					.draw(100,(double)(i*35+150));
 				FontAsset(Name::font)(strs[i+1])
-					.draw(700,i*35+150);
+					.draw(700,(double)(i*35+150));
 			}
 		}
 	}

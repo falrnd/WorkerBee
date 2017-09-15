@@ -29,6 +29,8 @@ void Main(){
 	mng.setFadeColor({0,0,0,100});
 	mng.init(Scene::Title);
 
+	Window::SetTitle(L"Worker Bee ver 1.1");
+
 	while (System::Update()){
 		TextureAsset(Name::BG).draw();
 
