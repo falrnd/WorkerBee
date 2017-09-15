@@ -330,4 +330,4 @@ $RECYCLE.BIN/
 [Ee]ngine/
 [Ee]xample/
 [Ss]creenshot/
-*.html
+*_log.html
